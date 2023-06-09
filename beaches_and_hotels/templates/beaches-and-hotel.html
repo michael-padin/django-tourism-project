@@ -182,7 +182,7 @@
 			});
 			if (response.ok) {
 				const data = await response.json();
-				console.log(data);
+				reservationForm.reset();
 				closeReservationForm();
 				displayReservationFeedback();
 			} else {
