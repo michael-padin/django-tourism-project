@@ -1,0 +1,321 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+.home__wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.hero__wrapper {
+	height: 50vh;
+	background: url("../images/mayo-argao-hero-bg.jpg") no-repeat center/cover;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.overlay {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.hero__container {
+	max-width: 1200px;
+	gap: 2rem;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	z-index: 50;
+	animation: slide-in 2s ease forwards;
+	opacity: 0;
+}
+
+.hero__headline {
+	font-size: 60px;
+	line-height: 70px;
+	font-weight: 800;
+	color: #ffff;
+}
+.hero__headline > span {
+	color: #1dc5ce;
+}
+
+.hero__subheadline {
+	color: #ffff;
+	font-size: 1.5rem;
+	line-height: 1.5;
+}
+
+.btn-reserve-container {
+	margin-top: 1rem;
+	cursor: pointer;
+}
+
+.btn-reserver, .btn-submit {
+	background-color: #1dc5ce;
+	border: 2px solid #1dc5ce;
+	color: #eee;
+	height: 50px;
+	border: none;
+	outline: none;
+	width: 200px;
+	border-radius: 8px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+/* FEATURES SECTIONS */
+
+.beaches__card-wrapper,
+.hotels__card-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: 100%;
+	gap: 2rem;
+}
+
+.hotel-img-container,
+.beach-img-container {
+	display: flex;
+	height: 200px;
+	border-radius: 5px;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+}
+
+.beach-img-container,
+.hotel-img-container {
+	border-radius: 0;
+}
+
+.feature-image,
+.beach-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.beach-card,
+.hotel-card {
+	overflow: hidden;
+	border-radius: 5px;
+	display: flex;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	flex-direction: column;
+	height: auto;
+	background-color: #fff;
+	min-height: 400px;
+}
+
+.feature-title,
+.beach-title {
+	min-height: 80px;
+	color: #0c7789;
+	font-size: 1.875rem;
+}
+
+.beach-desc,
+.hotel-desc {
+	font-size: 1rem;
+}
+
+#beaches {
+	background-color: #fafafa;
+}
+
+.beaches,
+.hotels {
+	padding: 5rem 0;
+	max-width: 1200px;
+	margin: auto;
+	height: 100%;
+}
+
+.beaches-headline,
+.hotels-headline {
+	color: #1dc5ce;
+	margin-bottom: 1rem;
+	font-size: 40px;
+}
+
+.beach-info-container,
+.hotel-info-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+.btn-reserver-container {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: flex-end;
+}
+
+.btn-reserve {
+	height: 50px;
+	background-color: #1dc5ce;
+	color: white;
+	border: none;
+	outline: none;
+	width: 120px;
+	border-radius: 8px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.customer__details-wrapper {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	display: none;
+	background-color: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(20px);
+}
+
+.customer__details-container {
+	position: relative;
+	margin: auto;
+}
+
+@keyframes popup {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.popup {
+	animation: popup 0.3s;
+}
+
+@keyframes popout {
+	100% {
+		transform: scale(0);
+	}
+}
+
+.popout {
+	animation: popout 0.3s;
+}
+
+.close-container {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	background-color: #e0e1e2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	top: -25px;
+	right: -25px;
+	position: absolute;
+}
+
+.show {
+	display: flex !important;
+}
+
+.customer__details-container > form {
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	background-color: #ffff;
+	padding: 1rem;
+	border-radius: 5px;
+	gap: 1rem;
+	margin: auto;
+	font-size: 14px;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.input-group > input {
+	border-radius: 5px;
+	height: 50px;
+	font-size: 1rem;
+	border: 1px solid #aaa;
+	padding: 1rem;
+	width: 100%;
+}
+
+
+
+/* FEEDBACK MESSAGE START HERE */
+
+.feedback__wrapper {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	display: none;
+	background-color: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(20px);
+	align-items: center;
+	justify-content: center;
+}
+
+.show__feedback {
+	display: flex !important;
+}
+
+.feedback__container {
+	background-color: #ffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	border-radius: 10px;
+	color: #000	;
+	position: relative;
+	height: 200px;
+	border: 1px solid #35df91;
+	font-size: 2rem;
+}
+
+.feedback__container > p {
+	text-align: center;
+}
+
+.close-feedback-container {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	background-color: #e0e1e2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	top: -25px;
+	right: -25px;
+	position: absolute;
+}
+
+
+.hotel-image{
+	width: 100%;height: 100%;
+}

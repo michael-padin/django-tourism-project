@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/beaches-and-hotel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/beach-reservation.css' %}">
+{% endblock %}
+
+{% block title %}
+Seaside Serenity: Hotels and Beaches in Argao
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="reservation-wrapper">
+    <div class="item-reserved-container">
+        <span style="color: #1dc5ce">Your Choice </span>
+        <div class="item-img-container">
+            <img src="data:image/jpeg;base64,{{ beach.image_data }}" alt="culture" class="beach-image">
+        </div>
+        <h1>{{beach.name}}</h1>
+    </div>
+    <div class="form-wrapper">
+        <form method="POST" action="{% url 'reservation' beach_id=beach.id %}">
+            {% csrf_token %}
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+            <br>
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            <br>
+            <label for="id_check_in_date">Check-in Date:</label>
+            {{ form.check_in_date }}
+            <br>
+            <label for="id_check_out_date">Check-out Date:</label>
+            {{ form.check_out_date }}
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

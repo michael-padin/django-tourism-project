@@ -1,0 +1,233 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/beaches-and-hotel.css' %}" />
+{% endblock %} {% block title %} Seaside Serenity: Hotels and Beaches in Argao
+{% endblock title %} {% block content %}
+
+<main>
+	<div>
+		<section id="hero">
+			<div class="hero__wrapper">
+				<div class="overlay"></div>
+				<div class="hero__container">
+					<h1 class="hero__headline">
+						<span>Discover Argao, Cebu:</span> Where Beach Dreams Come True
+					</h1>
+					<p class="hero__subheadline">
+						Immerse yourself in the beauty of our stunning beaches, indulge in
+						local delicacies, and explore the rich cultural heritage of Argao,
+						Cebu.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="beaches">
+			<div class="beaches">
+				<h1 class="beaches-headline">Explore the Beautiful Beaches of Argao</h1>
+				<div class="beaches__card-wrapper">
+					{% for beach in beaches %}
+					<div class="beach-card">
+						<div class="beach-img-container">
+							<img src="data:image/jpeg;base64,{{ beach.image_data }}" alt="culture"
+								class="beach-image" />
+						</div>
+						<div class="beach-info-container">
+							<h1 class="beach-title">{{ beach.name }}</h1>
+							<p class="beach-desc">{{ beach.description_short }}</p>
+							<div class="btn-reserver-container">
+								<button class="btn-reserve" beach-id="{{beach.id}}">Reserve</button>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+		<section id="hotels">
+			<div class="hotels">
+				<h1 class="hotels-headline">
+					Luxurious Accommodations for a Perfect Stay
+				</h1>
+				<div class="hotels__card-wrapper">
+					{% for hotel in hotels %}
+
+					<div class="hotel-card">
+						<div class="hotel-img-container">
+							<img src="data:image/jpeg;base64,{{ hotel.image_data }}" alt="culture"
+								class="hotel-image" />
+						</div>
+						<div class="hotel-info-container">
+							<h1 class="hotel-title">{{ hotel.name }}</h1>
+							<p class="hotel-desc">{{ hotel.description_short }}</p>
+							<div class="btn-reserver-container">
+								<button class="btn-reserve" hotel-id="{{hotel.id}}">Reserve</button>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	</div>
+	<div class="customer__details-wrapper">
+		<div class="customer__details-container">
+			<div class="close-container">
+				<?xml version="1.0" encoding="utf-8"?>
+
+				<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+				<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g id="Menu / Close_MD">
+						<path id="Vector" d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</g>
+				</svg>
+			</div>
+			<form id="reservation-form">
+				<div class="item-reserved-container">
+					<span style="color: #1dc5ce">Your Choice </span>
+					<div class="item-img-container">
+						<img src="data:image/jpeg;base64,{{ beach.image_data }}" alt="culture" class="beach-image" />
+					</div>
+					<h1>{{beach.name}}</h1>
+				</div>
+				{% csrf_token %}
+				<div class="input-group">
+					<label for="id_name">Name:</label>
+					<input type="text" id="id_name" required name="name">
+				</div>
+				<div class="input-group">
+					<label for="id_email">Email:</label>
+					<input type="email" id="id_email" required name="email">
+				</div>
+				<div type="text" class="input-group">
+					<label for="id_check_in_date">Check-in Date:</label>
+					<input type="date" id="id_check_in_date" required name="check_in_date">
+				</div>
+				<div class="input-group">
+					<label for="id_check_out_date">Check-out Date:</label>
+					<input type="date" id="id_check_out_date" required name="check_out_date">
+				</div>
+
+				<div>
+					<button type="submit" class="btn-submit">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="feedback__wrapper">
+		<div class="feedback__container">
+			<div class="close-feedback-container">
+				<!--?xml version="1.0" encoding="utf-8"?-->
+
+				<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g id="Menu / Close_MD">
+						<path id="Vector" d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+					</g>
+				</svg>
+			</div>
+			<p>Your reservation has been successfully submitted. <br>Our team will contact you to confirm the
+				details.<br> Have a great day!</p>
+		</div>
+	</div>
+</main>
+
+{% endblock content %} {% block scripts %}
+<script>
+	let beachId;
+	const allReservevBtn = document.querySelectorAll(".btn-reserve");
+	const booksWrapper = document.querySelector(".books__wrapper");
+	const reservationForm = document.getElementById("reservation-form");
+	const custDetailsWrapper = document.querySelector(".customer__details-wrapper");
+	const closeBtn = document.querySelector(".close-container");
+
+
+	const feedbackWrapper = document.querySelector(".feedback__wrapper");
+	const feedbackContainer = document.querySelector(".feedback__container");
+	const closeFeedbackBtn = document.querySelector(".close-feedback-container");
+
+
+	document.getElementById('reservation-form').addEventListener('submit', async (event) => {
+		event.preventDefault(); // Prevent form submission
+		// Perform actions or send AJAX request based on the form data
+		const formData = new FormData(event.target);
+		// Example: Log the form data to the console
+		const name = formData.get('name');
+		const email = formData.get('email');
+		const check_in_date = formData.get('check_in_date');
+		const check_out_date = formData.get('check_out_date');
+		const beach = parseInt(beachId);
+		// You can use JavaScript to further process the form data or send it to the server
+		// using AJAX for asynchronous form submission
+		// Example: Send form data to the server using AJAX
+
+		const data = {
+			name,
+			email,
+			check_in_date,
+			check_out_date,
+			beach
+		}
+
+		console.log(data)
+
+		try {
+			const response = await fetch(`/reservation/${beachId}/`, {
+				method: 'POST',
+				body: JSON.stringify(data),
+				headers: {
+					'X-CSRFToken': '{{ csrf_token }}'
+				}
+			});
+			if (response.ok) {
+				const data = await response.json();
+				console.log(data);
+				closeReservationForm();
+				displayReservationFeedback();
+			} else {
+				console.error('Failed to submit reservation form.');
+				alert("Failed to submit reservation form.")
+			}
+		} catch (error) {
+			console.error('An error occurred:', error);
+		}
+
+	});
+
+	function displayCusForm(e) {
+		beachId = e.target.getAttribute("beach-id");
+
+		reservationForm.parentElement.classList.remove("popout");
+		reservationForm.parentElement.classList.add("popup");
+		custDetailsWrapper.classList.add("show");
+	}
+
+	allReservevBtn.forEach((btn) => {
+		btn.addEventListener("click", displayCusForm);
+	});
+
+	function closeFeedbackMessage() {
+		feedbackContainer.classList.add("popout");
+		setTimeout(() => {
+			feedbackWrapper.classList.remove("show__feedback");
+		}, 100);
+	}
+
+
+
+	function closeReservationForm() {
+		setTimeout(() => {
+			custDetailsWrapper.classList.remove("show");
+		}, 100);
+	}
+
+	function displayReservationFeedback() {
+		feedbackContainer.classList.add("popup");
+		feedbackWrapper.classList.add("show__feedback");
+	}
+
+	closeFeedbackBtn.addEventListener("click", closeFeedbackMessage);
+	closeBtn.addEventListener("click", closeReservationForm);
+</script>
+{% endblock %}
