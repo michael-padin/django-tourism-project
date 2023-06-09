@@ -71,6 +71,10 @@
 	cursor: pointer;
 }
 
+.btn-submit {
+	margin-top: 1rem;
+}
+
 @keyframes slide-in {
 	0% {
 		transform: translateX(-100%);
@@ -189,7 +193,7 @@
 	inset: 0;
 	z-index: 999999;
 	display: none;
-	background-color: rgba(255, 255, 255, 0.1);
+	background-color: rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(20px);
 }
 
@@ -272,7 +276,7 @@
 	inset: 0;
 	z-index: 999999;
 	display: none;
-	background-color: rgba(255, 255, 255, 0.1);
+	background-color: rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(20px);
 	align-items: center;
 	justify-content: center;

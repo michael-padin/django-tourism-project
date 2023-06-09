@@ -84,11 +84,11 @@
 			</div>
 			<form id="reservation-form">
 				<div class="item-reserved-container">
-					<span style="color: #1dc5ce">Your Choice </span>
-					<div class="item-img-container">
+					<h1 style="color: #1dc5ce">Your Choice </h1>
+					{% comment %} <div class="item-img-container">
 						<img src="data:image/jpeg;base64,{{ beach.image_data }}" alt="culture" class="beach-image" />
 					</div>
-					<h1>{{beach.name}}</h1>
+					<h1>{{beach.name}}</h1> {% endcomment %}
 				</div>
 				{% csrf_token %}
 				<div class="input-group">
