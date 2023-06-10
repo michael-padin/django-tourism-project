@@ -1,9 +1,5 @@
 # Argao Tourism - Django <br/>
 
-
-
-## Links
-
 ## Screenshots
 ![image](https://github.com/michael-padin/django-tourism-project/assets/75446003/9040d31d-774e-423e-a007-77972fb08248)
 
