@@ -7,19 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/beach-and-hotel-loader.css' %}">
     {% block css %}{% endblock  %}
     <title>{% block title %}{% endblock  %}</title>
 </head>
 
 <body>
-    <nav>
+    {% comment %} <nav>
         <div class="navbar__wrapper">
             <div class="navbar-container">
                 <a href="{% url 'hotels' %}">Hotels</a>
                 <a href="{% url 'beaches' %}">Beaches</a>
             </div>
         </div>
-    </nav>
+    </nav> {% endcomment %}
 
     {% block content %}{% endblock  %}
     {% block scripts %}{% endblock  %}

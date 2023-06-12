@@ -28,21 +28,7 @@ class Hotel(models.Model):
         return self.name
 
 
-class TourPackage(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(default="")
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    duration = models.PositiveIntegerField(help_text="Duration in days")
-    image = models.ImageField(
-        upload_to='package_images', default='default_image.jpg')
-    beach = models.ForeignKey(Beach, on_delete=models.CASCADE)
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
-class Reservation(models.Model):
+class HotelAndBeachReservation(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     check_in_date = models.DateField()
@@ -54,33 +40,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"Reservation #{self.id} - {self.name}"
-
-
-class BeachRoomType(models.Model):
-    beach = models.ForeignKey(Beach, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-
-    def __str__(self):
-        return self.name
-
-
-class HotelRoomType(models.Model):
-    beach = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-
-    def __str__(self):
-        return self.name
-
-
-class RoomType(models.Model):
-    beach = models.ForeignKey(Beach, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-
-    def __str__(self):
-        return self.name

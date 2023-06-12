@@ -7,7 +7,7 @@ import os
 import json
 from base64 import b64encode
 
-from .models import Hotel, Beach,Reservation
+from .models import Hotel, Beach, HotelAndBeachReservation
 
 from .forms import ReservationForm
 
@@ -31,11 +31,10 @@ def serve_image(request, image_file):
         # Return a 404 error if the image file is not found
         return HttpResponse(status=404)
 
+
 def beachesAndHotels(request):
     hotels = Hotel.objects.all()
     beaches = Beach.objects.all()
-
-
 
     for hotel in hotels:
         hotel.description_short = hotel.description[:155]
@@ -43,7 +42,6 @@ def beachesAndHotels(request):
             hotel.description_short += "..."
         image_data = hotel.image.read()
         hotel.image_data = b64encode(image_data).decode('utf-8')
-    
 
     for beach in beaches:
         beach.description_short = beach.description[:155]
@@ -56,6 +54,7 @@ def beachesAndHotels(request):
 
     return render(request, 'beaches-and-hotel.html', context)
 
+
 def beach_details(request, beach_id):
     beach = get_object_or_404(Beach, id=beach_id)
 
@@ -65,6 +64,7 @@ def beach_details(request, beach_id):
 
     return render(request, 'beach-details.html', context)
 
+
 @csrf_exempt
 def reservation_beach_view(request, beach_id):
     beach = Beach.objects.get(id=beach_id)
@@ -72,7 +72,7 @@ def reservation_beach_view(request, beach_id):
     beach.image_data = b64encode(image_data).decode('utf-8')
 
     if request.method == 'POST':
-            # Get the data from the request body
+        # Get the data from the request body
         data = json.loads(request.body)
         # Extract the customer information
         beachId = data.get('beach')
@@ -82,10 +82,11 @@ def reservation_beach_view(request, beach_id):
         check_out_date = data.get('check_out_date')
 
         beach = Beach.objects.get(id=beachId)
-        
+
         try:
             # Save the customer to the database with the book foreign key
-            reserve = Reservation(beach=beach, name=name, email=email, check_in_date = check_in_date, check_out_date = check_out_date)
+            reserve = HotelAndBeachReservation(
+                beach=beach, name=name, email=email, check_in_date=check_in_date, check_out_date=check_out_date)
             reserve.save()
 
             # Return a success response
@@ -104,7 +105,6 @@ def reservation_beach_view(request, beach_id):
     }
 
     return render(request, 'reservation.html', context)
-
 
 
 def beaches(request):
