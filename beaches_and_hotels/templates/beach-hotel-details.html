@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/beach-hotel-details.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/beaches-and-hotel.css' %}" />
+{% endblock %}
+
+{% block title %} Seaside Serenity: Hotels and Beaches in Argao {% endblock title %}
+
+{% block content %}
+
+<div class="parent-wrapper">
+    <div class="beach-hotel-wrapper">
+        <div class="links">
+            <a href="/">Hotels and beaches</a>
+            /
+            <a href="">{{beach.name}}</a>
+        </div>
+
+        <div class="details-wrapper">
+            <div class="detail-image-container">
+                <img src="data:image/jpeg;base64,{{ beach.image_data }}" alt="culture" alt="" >
+            </div>
+            <div class="hotel-beach-details-container">
+                <div class="detail-title-container">
+                    <h1 class="detail-title">{{beach.name}}</h1>
+                </div>
+
+                {% if room_types %}
+                <div class="room-type-container">
+                    <label for="rooms">Room Type</label>
+                    <select name="" id="rooms">
+                        {% for room_type in room_types %}
+                        <option value="{{room_type.id}}">{{room_type.name }} - &#8369;{{room_type.price}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% else %}
+                {% endif %}
+                <div class="detail-desc-container">
+                    <div class="desc">
+                        <label for="">Description</label>
+                        <p class="detail-desc">{{beach.description}}
+                        </p>
+                    </div>
+
+                    {% if beach.amenities_list %}
+                    <div class="amenities-container">
+                        <label for="">Amenities</label>
+                        <div class="items-container">
+                            {% for amenity in beach.amenities_list %}
+                            <p>{{amenity}}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% else %}
+                    {% endif %}
+                </div>
+                <div class="btn-reserve-container">
+                    <button class="btn-reserve" data-id="{{beach.id}}">
+                        Reserve
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="customer__details-wrapper">
+        <div class="customer__details-container">
+            <div class="close-container">
+                <?xml version="1.0" encoding="utf-8"?>
+
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="Menu / Close_MD">
+                        <path id="Vector" d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18" stroke="#000000"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                </svg>
+            </div>
+            <form id="reservation-form">
+                <div class="item-reserved-container">
+                    <div class="choice-img-container">
+                        <img
+                            src="" id ="beach-hotel-image"/>
+                        <div class="choice-title-container">
+                            <h1 class="choice-title">Casa Amigo</h1>
+                        </div>
+                    </div>
+                </div>
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <div>
+                        <h1 class="reservation-heading">Unlock Your Perfect Stay</h1>
+                        <h3>Secure Your Spot Today</h3>
+                    </div>
+                    <div class="input-group">
+                        <label for="id_name">Name:</label>
+                        <input type="text" id="id_name" required name="name">
+                    </div>
+                    <div class="input-group">
+                        <label for="id_num_of_guests">Number of guests:</label>
+                        <input type="number" id="id_num_of_guests" required name="num_of_guests">
+                    </div>
+                    <div class="input-group">
+                        <label for="id_email">Email:</label>
+                        <input type="email" id="id_email" required name="email">
+                    </div>
+                    <div type="text" class="input-group">
+                        <label for="id_check_in_date">Check-in Date:</label>
+                        <input type="date" id="id_check_in_date" required name="check_in_date">
+                    </div>
+                    <div class="input-group">
+                        <label for="id_check_out_date">Check-out Date:</label>
+                        <input type="date" id="id_check_out_date" required name="check_out_date">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/beach-hotel-details.js' %}" defer></script>
+{% endblock %}

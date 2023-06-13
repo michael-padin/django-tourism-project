@@ -7,7 +7,7 @@ import os
 import json
 from base64 import b64encode
 
-from .models import Hotel, Beach, HotelAndBeachReservation
+from .models import Hotel, Beach, HotelAndBeachReservation, HotelAndBeachRoomType
 
 from .forms import ReservationForm
 
@@ -55,46 +55,127 @@ def beachesAndHotels(request):
     return render(request, 'beaches-and-hotel.html', context)
 
 
-def beach_details(request, beach_id):
-    beach = get_object_or_404(Beach, id=beach_id)
+@csrf_exempt
+def hotel_beach_details_json(request, beach_id):
+    try:
+        beach = Beach.objects.get(id=beach_id)
+        image_data = beach.image.read()
+        beach.image_data = b64encode(image_data).decode('utf-8')
 
-    context = {
-        'beach': beach,
-    }
+         # Convert the beach object to a dictionary
+        beach_data = {
+            'id': beach.id,
+            'name': beach.name,
+            'image_data': beach.image_data
+            # Include other beach fields as needed
+        }
+        
+        # Build the response JSON object
+        response = {
+            'beach': beach_data,
+        }
 
-    return render(request, 'beach-details.html', context)
+        return JsonResponse(response)
+    except Beach.DoesNotExist:
+        try:
+            hotel = Hotel.objects.get(id=beach_id)
+            image_data = hotel.image.read()
+            hotel.image_data = b64encode(image_data).decode('utf-8')
+
+            beach_data = {
+            'id': hotel.id,
+            'name': hotel.name,
+            'image_data': hotel.image_data
+            # Include other hotel fields as needed
+            }
+        
+            # Build the response JSON object
+            response = {
+                'beach': beach_data,
+            }
+            return JsonResponse(response)
+        except Hotel.DoesNotExist:
+            # Handle the case when neither Beach nor Hotel object is found
+            return HttpResponse('No Beach or Hotel found.')
+
+def hotel_beach_details(request, beach_id):
+    try:
+        beach = Beach.objects.get(id=beach_id)
+        room_types = beach.hotelandbeachroomtype_set.all()
+        image_data = beach.image.read()
+        beach.image_data = b64encode(image_data).decode('utf-8')
+
+        context = {
+            'room_types': room_types,
+            'beach': beach,
+        }
+
+        return render(request, 'beach-hotel-details.html', context)
+    except Beach.DoesNotExist:
+        try:
+            hotel = Hotel.objects.get(id=beach_id)
+            room_types = hotel.hotelandbeachroomtype_set.all()
+            image_data = hotel.image.read()
+            hotel.image_data = b64encode(image_data).decode('utf-8')
+
+            context = {
+                'beach': hotel,
+                'room_types': room_types,
+            }
+
+            return render(request, 'beach-hotel-details.html', context)
+        except Hotel.DoesNotExist:
+            # Handle the case when neither Beach nor Hotel object is found
+            return HttpResponse('No Beach or Hotel found.')
 
 
 @csrf_exempt
 def reservation_beach_view(request, beach_id):
-    beach = Beach.objects.get(id=beach_id)
-    image_data = beach.image.read()
-    beach.image_data = b64encode(image_data).decode('utf-8')
+    hotel = None
+    beach = None
+    room_type = None
+    try:
+        beach = Beach.objects.get(id=beach_id)
+        image_data = beach.image.read()
+        beach.image_data = b64encode(image_data).decode('utf-8')
+    except Beach.DoesNotExist:
+        try:
+            hotel = Hotel.objects.get(id=beach_id)
+            image_data = hotel.image.read()
+            hotel.image_data = b64encode(image_data).decode('utf-8')
+        except Hotel.DoesNotExist:
+            return JsonResponse({'error': 'Invalid beach or hotel ID.'}, status=400)
 
     if request.method == 'POST':
-        # Get the data from the request body
         data = json.loads(request.body)
-        # Extract the customer information
-        beachId = data.get('beach')
+        number_of_guests = data.get('number_of_guests')
         name = data.get('name')
         email = data.get('email')
         check_in_date = data.get('check_in_date')
         check_out_date = data.get('check_out_date')
 
-        beach = Beach.objects.get(id=beachId)
+        try:
+            room_type_id = data.get('room_type')
+            room_type = HotelAndBeachRoomType.objects.get(id=room_type_id)
+        except HotelAndBeachRoomType.DoesNotExist:
+            # Handle the case when the room type does not exist
+            room_type = None
 
         try:
-            # Save the customer to the database with the book foreign key
             reserve = HotelAndBeachReservation(
-                beach=beach, name=name, email=email, check_in_date=check_in_date, check_out_date=check_out_date)
+                beach=beach or None,
+                name=name,
+                email=email,
+                room_type=room_type or None,
+                check_in_date=check_in_date,
+                check_out_date=check_out_date,
+                hotel=hotel or None,
+                number_of_guests=number_of_guests
+            )
             reserve.save()
-
-            # Return a success response
             return JsonResponse({'message': 'Customer information saved successfully.'})
-
         except Beach.DoesNotExist:
-            # Return an error response if the book does not exist
-            return JsonResponse({'error': 'Book does not exist.'}, status=400)
+            return JsonResponse({'error': 'Beach does not exist.'}, status=400)
 
     else:
         form = ReservationForm()
@@ -105,11 +186,3 @@ def reservation_beach_view(request, beach_id):
     }
 
     return render(request, 'reservation.html', context)
-
-
-def beaches(request):
-    return render(request, 'beaches.html')
-
-
-def hotels(request):
-    return render(request, 'hotels.html')

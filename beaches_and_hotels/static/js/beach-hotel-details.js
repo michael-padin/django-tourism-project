@@ -1,14 +1,13 @@
-let beachId;
-let hotelId;
-
+let id;
 const choiceImage = document.getElementById("beach-hotel-image");
 const choiceTitle = document.querySelector(".choice-title");
 
-const allReservevBtn = document.querySelectorAll(".btn-reserve");
+const btnReserve = document.querySelector(".btn-reserve");
 const booksWrapper = document.querySelector(".books__wrapper");
 const reservationForm = document.getElementById("reservation-form");
 const custDetailsWrapper = document.querySelector(".customer__details-wrapper");
 const closeBtn = document.querySelector(".close-container");
+const roomsSelect = document.getElementById("rooms");
 
 const feedbackWrapper = document.querySelector(".feedback__wrapper");
 const feedbackContainer = document.querySelector(".feedback__container");
@@ -24,13 +23,15 @@ async function handleReservationSubmit(event) {
 	const check_in_date = formData.get("check_in_date");
 	const check_out_date = formData.get("check_out_date");
 	const number_of_guests = formData.get("num_of_guests");
-	const beach = parseInt(beachId);
-	const hotel = parseInt(hotelId);
+	const beach = parseInt(id);
+	const hotel = parseInt(id);
+	const room_type = parseInt(roomsSelect?.value) || null;
 	// You can use JavaScript to further process the form data or send it to the server
 	// using AJAX for asynchronous form submission
 	// Example: Send form data to the server using AJAX
 
 	const data = {
+		room_type,
 		number_of_guests,
 		name,
 		email,
@@ -41,7 +42,7 @@ async function handleReservationSubmit(event) {
 	};
 
 	try {
-		const response = await fetch(`/reservation/${beachId || hotelId}/`, {
+		const response = await fetch(`/reservation/${id}/`, {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
@@ -61,6 +62,7 @@ async function handleReservationSubmit(event) {
 		console.error("An error occurred:", error);
 	}
 }
+
 async function fetchHotelBeachDetails(id) {
 	try {
 		const response = await fetch(`/hotel-beach-details-json/${parseInt(id)}/`);
@@ -83,11 +85,9 @@ async function fetchHotelBeachDetails(id) {
 
 /** THIS FUNCTION WILL DISPLAY THE RESERVATION FORM */
 function displayReservationForm(e) {
-	beachId = e.target.getAttribute("beach-id");
-	hotelId = e.target.getAttribute("hotel-id");
+	id = e.target.getAttribute("data-id");
 
-	fetchHotelBeachDetails(beachId || hotelId);
-
+	fetchHotelBeachDetails(id);
 	showLoader();
 	setTimeout(() => {
 		hideLoader();
@@ -102,7 +102,6 @@ function displayReservationForm(e) {
  * IS CLICK THIS FEEDBACK FORM WILL CLOSE
  *  */
 function closeFeedbackMessage() {
-	feedbackContainer.classList.remove("popup");
 	feedbackContainer.classList.add("popout");
 	setTimeout(() => {
 		feedbackWrapper.classList.remove("show__feedback");
@@ -123,7 +122,6 @@ function closeReservationForm() {
  * RESERVATION FORM
  */
 function displayReservationFeedback() {
-	feedbackContainer.classList.remove("popout");
 	feedbackContainer.classList.add("popup");
 	feedbackWrapper.classList.add("show__feedback");
 }
@@ -156,11 +154,10 @@ function hideLoader() {
 }
 
 /* IF RESERVE BUTTON IS CLICK SHOW THE RESERVATION FORM */
-allReservevBtn.forEach((btn) => {
-	btn.addEventListener("click", displayReservationForm);
-});
+btnReserve.addEventListener("click", displayReservationForm);
 
-closeFeedbackBtn.addEventListener("click", closeFeedbackMessage);
+if (closeFeedbackBtn)
+	closeFeedbackBtn.addEventListener("click", closeFeedbackMessage);
 closeBtn.addEventListener("click", closeReservationForm);
 document
 	.getElementById("reservation-form")
