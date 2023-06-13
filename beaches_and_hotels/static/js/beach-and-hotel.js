@@ -14,8 +14,92 @@ const feedbackWrapper = document.querySelector(".feedback__wrapper");
 const feedbackContainer = document.querySelector(".feedback__container");
 const closeFeedbackBtn = document.querySelector(".close-feedback-container");
 
+// ERRORS
+const nameInput = document.getElementById("id_name");
+const numOfGuestsInput = document.getElementById("id_num_of_guests");
+const emailInput = document.getElementById("id_email");
+const checkInDateInput = document.getElementById("id_check_in_date");
+const checkOutDateInput = document.getElementById("id_check_out_date");
+
+const nameErr = document.querySelector(".name-err");
+const numOfGuestsErr = document.querySelector(".num-of-guests-err");
+const emailErr = document.querySelector(".email-err");
+const checkInDateErr = document.querySelector(".check-in-date-err");
+const checkOutDateErr = document.querySelector(".check-out-date-err");
+
+function validateForm() {
+	let isValid = true;
+
+	// Name validation
+	 // Name validation
+	 if (nameInput.value.trim() === '') {
+		nameErr.textContent = 'Name is required';
+		isValid = false;
+	  } else if (nameInput.value.length < 3 || nameInput.value.length > 20) {
+		nameErr.textContent = 'Name must be between 3 and 20 characters';
+		isValid = false;
+	  } else if (/\d/.test(nameInput.value)) {
+		nameErr.textContent = 'Name cannot contain numbers';
+		isValid = false;
+	  } else {
+		nameErr.textContent = '';
+	  }
+	
+
+	// Number of guests validation
+	if (numOfGuestsInput.value.trim() === "") {
+		numOfGuestsErr.textContent = "Number of guests is required";
+		isValid = false;
+	} else if (
+		isNaN(numOfGuestsInput.value.trim()) ||
+		parseInt(numOfGuestsInput.value.trim()) <= 0
+	) {
+		numOfGuestsErr.textContent = "Invalid number of guests";
+		isValid = false;
+	} else {
+		numOfGuestsErr.textContent = "";
+	}
+
+	// Email validation
+	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	if (emailInput.value.trim() === "") {
+		emailErr.textContent = "Email is required";
+		isValid = false;
+	} else if (!emailPattern.test(emailInput.value.trim())) {
+		emailErr.textContent = "Invalid email address";
+		isValid = false;
+	} else {
+		emailErr.textContent = "";
+	}
+
+	// Check-in date validation
+	if (checkInDateInput.value === "") {
+		checkInDateErr.textContent = "Check-in date is required";
+		isValid = false;
+	} else {
+		checkInDateErr.textContent = "";
+	}
+
+	// Check-out date validation
+	if (checkOutDateInput.value === "") {
+		checkOutDateErr.textContent = "Check-out date is required";
+		isValid = false;
+	} else if (checkOutDateInput.value <= checkInDateInput.value) {
+		checkOutDateErr.textContent =
+			"Check-out date must be after the check-in date";
+		isValid = false;
+	} else {
+		checkOutDateErr.textContent = "";
+	}
+
+	return isValid;
+}
+
 async function handleReservationSubmit(event) {
 	event.preventDefault(); // Prevent form submission
+
+	if (!validateForm()) return
+
 	// Perform actions or send AJAX request based on the form data
 	const formData = new FormData(event.target);
 	// Example: Log the form data to the console

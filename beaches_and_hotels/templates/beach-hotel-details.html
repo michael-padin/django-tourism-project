@@ -96,28 +96,33 @@
                         <h3>Secure Your Spot Today</h3>
                     </div>
                     <div class="input-group">
-                        <label for="id_name">Name:</label>
-                        <input type="text" id="id_name" required name="name">
-                    </div>
-                    <div class="input-group">
-                        <label for="id_num_of_guests">Number of guests:</label>
-                        <input type="number" id="id_num_of_guests" required name="num_of_guests">
-                    </div>
-                    <div class="input-group">
-                        <label for="id_email">Email:</label>
-                        <input type="email" id="id_email" required name="email">
-                    </div>
-                    <div type="text" class="input-group">
-                        <label for="id_check_in_date">Check-in Date:</label>
-                        <input type="date" id="id_check_in_date" required name="check_in_date">
-                    </div>
-                    <div class="input-group">
-                        <label for="id_check_out_date">Check-out Date:</label>
-                        <input type="date" id="id_check_out_date" required name="check_out_date">
-                    </div>
-                    <div>
-                        <button type="submit" class="btn-submit">Submit</button>
-                    </div>
+						<label for="id_name">Name:</label>
+						<input type="text" id="id_name" required name="name">
+						<span class="error name-err"></span>
+					</div>
+					<div class="input-group">
+						<label for="id_num_of_guests">Number of guests:</label>
+						<input type="number" id="id_num_of_guests" required name="num_of_guests">
+						<span class="error num-of-guests-err"></span>
+					</div>
+					<div class="input-group">
+						<label for="id_email">Email:</label>
+						<input type="email" id="id_email" required name="email">
+						<span class="error email-err"></span>
+					</div>
+					<div type="text" class="input-group">
+						<label for="id_check_in_date">Check-in Date:</label>
+						<input type="date" id="id_check_in_date" required name="check_in_date">
+						<span class="error check-in-date-err"></span>
+					</div>
+					<div class="input-group">
+						<label for="id_check_out_date">Check-out Date:</label>
+						<input type="date" id="id_check_out_date" required name="check_out_date">
+						<span class="error check-out-date-err"></span>
+					</div>
+					<div>
+						<button type="submit" class="btn-submit">Submit</button>
+					</div>
                 </div>
             </form>
         </div>

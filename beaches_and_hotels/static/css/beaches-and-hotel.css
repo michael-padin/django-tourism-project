@@ -7,6 +7,11 @@
 	scroll-behavior: smooth;
 }
 
+.error{
+	color: red;
+	font-size: 12px;
+}
+
 html,
 body {
 	font-family: "Poppins", sans-serif;
