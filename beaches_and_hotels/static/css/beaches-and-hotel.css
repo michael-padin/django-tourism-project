@@ -14,6 +14,17 @@ body {
 	overflow-x: hidden;
 }
 
+a{
+	text-decoration: none;
+	text-decoration-color: #1dc5ce;
+	transition: all .2s ease;
+}
+
+a:hover{
+	text-decoration-line: underline;
+	text-decoration-color: #1dc5ce;
+}
+
 ::-webkit-scrollbar {
 	width: 10px;
 	z-index: 99999;
@@ -56,6 +67,7 @@ body {
 	gap: 2rem;
 	flex-direction: column;
 	justify-content: center;
+	padding: 0 1rem;
 	align-items: center;
 	display: flex;
 	z-index: 50;
@@ -182,7 +194,7 @@ body {
 
 .beaches,
 .hotels {
-	padding: 5rem 0;
+	padding: 5rem 1rem;
 	max-width: 1200px;
 	margin: auto;
 	height: 100%;
@@ -237,7 +249,6 @@ body {
 .customer__details-container {
 	position: relative;
 	display: flex;
-	margin: auto;
 }
 
 @keyframes popup {
@@ -274,6 +285,7 @@ body {
 	border-radius: 50%;
 	top: -25px;
 	right: -25px;
+	padding: 5px;
 	position: absolute;
 }
 
@@ -286,11 +298,13 @@ body {
 	background-color: #ffff;
 	padding: 1rem;
 	border-radius: 5px;
-	flex-direction: column;
 	gap: 1rem;
 	margin: auto;
-	width: 500px;
 	font-size: 14px;
+}
+
+.reservation-heading{
+	color: #0c7789;
 }
 
 .input-group {
@@ -300,12 +314,24 @@ body {
 
 .input-group > input {
 	border-radius: 5px;
-	height: 50px;
+	height: 40px;
 	font-size: 1rem;
 	border: 1px solid #aaa;
-	padding: 1rem;
+	padding: .5rem;
 	width: 100%;
 }
+
+.input-group > input:hover{
+	border: none;
+	outline: 2px solid hsl(183, 75%, 80%);
+}
+
+.input-group > input:focus{
+	outline: 3px solid hsl(183, 75%, 80%);
+	border: 1px solid hsl(183, 75%, 40%);
+}
+
+
 
 /* FEEDBACK MESSAGE START HERE */
 
@@ -360,6 +386,8 @@ body {
 
 .item-reserved-container {
 	overflow: hidden;
+	flex: 1;
+	width: 500px;
 }
 
 .hotel-image {
@@ -369,7 +397,7 @@ body {
 
 .choice-img-container {
 	position: relative;
-	height: 150px;
+	height: 100%;
 	display: flex;
 	overflow: hidden;
 	border-radius: 8px;
@@ -405,5 +433,6 @@ body {
 .form-group {
 	display: flex;
 	flex-direction: column;
-	margin-top: 42px;
+	gap: 1rem;
+	flex: 1;
 }
