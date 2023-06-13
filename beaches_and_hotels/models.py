@@ -53,7 +53,12 @@ class HotelAndBeachRoomType(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return self.name
+        if self.beach:
+            return f"{self.beach.name} - {self.name}"
+        elif self.hotel:
+            return f"{self.hotel.name} - {self.name}"
+        else:
+            return self.name
 
 
 class HotelAndBeachReservation(models.Model):
