@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+.home__wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.hero__wrapper {
+	height: 100vh;
+	background: url("../images/mayo-argao-hero-bg.jpg") no-repeat center/cover;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.overlay {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.hero__container {
+	margin-top: 100px;
+
+	max-width: 1200px;
+	display: flex;
+	z-index: 50;
+	animation: slide-in 2s ease forwards;
+	opacity: 0;
+}
+.hero__container > div {
+	gap: 2rem;
+}
+.hero__container > div:nth-child(1) {
+	display: flex;
+	flex: 2;
+
+	flex-direction: column;
+}
+
+.hero__container > div:nth-child(2) {
+	flex: 1;
+}
+
+.hero__headline {
+	font-size: 64px;
+	line-height: 70px;
+	font-weight: 800;
+	color: #ffff;
+}
+
+.hero__subheadline {
+	color: #ffff;
+	font-size: 1.5rem;
+	line-height: 1.5;
+	text-align: left;
+}
+
+.btn-reserve-container {
+	margin-top: 1rem;
+	cursor: pointer;
+}
+
+.btn-reserver {
+	background-color: #1dc5ce;
+	border: 2px solid #1dc5ce;
+	color: #eee;
+	height: 50px;
+	border: none;
+	outline: none;
+	width: 200px;
+	border-radius: 8px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+/* FEATURES SECTIONS */
+
+.features {
+	max-width: 1200px;
+	margin: auto;
+	height: 100%;
+	padding: 5rem 0;
+}
+
+.features__headline {
+	margin: 0 0 1rem 0;
+	font-size: 40px;
+	color: #1dc5ce;
+}
+
+.features__card-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: 100%;
+	gap: 4rem;
+}
+.beaches__card-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: 100%;
+	gap: 3rem;
+}
+
+.feature-img-container,
+.beach-img-container {
+	display: flex;
+	height: 200px;
+	border-radius: 5px;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+}
+
+.beach-img-container {
+    border-radius: 0;
+}
+
+
+
+.feature-image,
+.beach-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.feature-info-container {
+	padding: 1rem 0;
+}
+
+.beach-card {
+	overflow: hidden;
+	border-radius: 5px;
+	display: flex;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	flex-direction: column;
+	height: auto;
+	background-color: #fff;
+	min-height: 400px;
+}
+
+.feature-title,
+.beach-title {
+	color: #0c7789;
+}
+
+.feature-desc {
+	font-size: 1.25rem;
+}
+
+/* BEACHES SECTION */
+#beaches {
+	background-color: #fafafa;
+}
+
+.beaches {
+	padding: 5rem 0;
+	max-width: 1200px;
+	margin: auto;
+	height: 100%;
+}
+
+.beaches-headline {
+	color: #1dc5ce;
+	font-size: 40px;
+}
+
+.beach-info-container {
+	padding: 2rem;
+}
