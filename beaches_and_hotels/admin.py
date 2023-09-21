@@ -1,10 +1,7 @@
 from django.contrib import admin
-from .models import Beach, Hotel, TourPackage, Reservation, HotelRoomType, BeachRoomType, RoomType
+from .models import Beach, Hotel, HotelAndBeachReservation, HotelAndBeachRoomType
 
 admin.site.register(Beach)
 admin.site.register(Hotel)
-admin.site.register(TourPackage)
-admin.site.register(Reservation)
-admin.site.register(HotelRoomType)
-admin.site.register(BeachRoomType)
-admin.site.register(RoomType)
+admin.site.register(HotelAndBeachReservation)
+admin.site.register(HotelAndBeachRoomType)
