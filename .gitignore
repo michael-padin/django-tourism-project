@@ -14,8 +14,6 @@ __pycache__/
 */settings.py
 */settings_local.py
 
-# Ignore database files
-*.sqlite3
 
 # Ignore static files
 /staticfiles/
@@ -37,6 +35,3 @@ __pycache__/
 # Ignore virtual environment
 venv/
 env/
-
-# Ignore local development server
-manage.py
